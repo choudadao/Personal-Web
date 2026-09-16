@@ -1,0 +1,49 @@
+{
+  "errors": [],
+  "initial": {
+    "state": {
+      "width": 1440,
+      "height": 1000,
+      "scroll": 0,
+      "hover": 0,
+      "gyro": false,
+      "waves": 0,
+      "textLines": 54,
+      "avatarLoaded": true
+    },
+    "rotation": [
+      0,
+      0,
+      0,
+      "XYZ"
+    ]
+  },
+  "moved": [
+    -0.34972965783526816,
+    0.47810264731845187,
+    0.08127745004413688,
+    "XYZ"
+  ],
+  "hover": 0.996303615133214,
+  "waves": 1,
+  "visibleAvoidLines": 9,
+  "contact": {
+    "hash": "#contact",
+    "y": 4950
+  },
+  "sound": "true",
+  "mobile": {
+    "state": {
+      "width": 390,
+      "height": 844,
+      "scroll": 859.9999643680416,
+      "hover": 0,
+      "gyro": false,
+      "waves": 0,
+      "textLines": 117,
+      "avatarLoaded": true
+    },
+    "overflow": false
+  },
+  "simulatedGyro": true
+}

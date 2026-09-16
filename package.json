@@ -1,0 +1,1 @@
+{"name":"personal-avatar-about","version":"1.0.0","private":true,"type":"module","scripts":{"dev":"node server.mjs","check":"node --check dist/app.js && node --check dist/content.js && node --check server.mjs"},"devDependencies":{"@gltf-transform/core":"^4.5.0","@gltf-transform/extensions":"^4.5.0","@gltf-transform/functions":"^4.5.0","meshoptimizer":"^1.2.0"}}

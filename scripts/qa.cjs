@@ -1,0 +1,27 @@
+const {chromium}=require('playwright');
+const fs=require('fs');
+(async()=>{
+ const browser=await chromium.launch({headless:true,channel:'msedge'});
+ const page=await browser.newPage({viewport:{width:1440,height:1000}});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+ await page.goto('http://127.0.0.1:4173/about',{waitUntil:'networkidle'});
+ await page.waitForFunction(()=>window.__aboutDebug?.state.avatarLoaded,{timeout:60000});await page.waitForTimeout(1700);
+ await page.screenshot({path:'docs/desktop.png'});
+ const initial=await page.evaluate(()=>({state:window.__aboutDebug.state,rotation:window.__aboutDebug.avatar.rotation.toArray()}));
+ await page.mouse.move(1250,150);await page.waitForTimeout(700);
+ const moved=await page.evaluate(()=>window.__aboutDebug.avatar.rotation.toArray());
+ await page.mouse.move(720,500);await page.waitForTimeout(450);
+ const hover=await page.evaluate(()=>window.__aboutDebug.state.hover);await page.screenshot({path:'docs/hover.png'});
+ await page.locator('#avatar-control').click();await page.waitForTimeout(250);await page.screenshot({path:'docs/ripple.png'});
+ const waves=await page.evaluate(()=>window.__aboutDebug.state.waves);
+ await page.evaluate(()=>window.scrollTo({top:850,behavior:'instant'}));await page.waitForTimeout(1400);await page.screenshot({path:'docs/desktop-scroll.png'});
+ const avoid=await page.evaluate(()=>window.__aboutDebug.scene.children.filter(o=>o.userData.avoid&&o.visible).map(o=>({x:o.position.x,y:o.position.y,edge:o.userData.baseX})));
+ await page.locator('a[href="#contact"]').first().click();await page.waitForTimeout(1200);const contact=await page.evaluate(()=>({hash:location.hash,y:scrollY}));
+ await page.locator('#sound').click();const sound=await page.locator('#sound').getAttribute('aria-pressed');
+ const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:2});mobile.on('pageerror',e=>errors.push(e.message));
+ await mobile.addInitScript(()=>{if(window.DeviceOrientationEvent)DeviceOrientationEvent.requestPermission=async()=> 'granted';});await mobile.goto('http://127.0.0.1:4173/about',{waitUntil:'networkidle'});await mobile.waitForFunction(()=>window.__aboutDebug?.state.avatarLoaded);await mobile.waitForTimeout(1300);await mobile.screenshot({path:'docs/mobile.png'});
+ await mobile.evaluate(()=>window.scrollTo({top:860,behavior:'instant'}));await mobile.waitForTimeout(1300);await mobile.screenshot({path:'docs/mobile-scroll.png'});
+ const mobileState=await mobile.evaluate(()=>({state:window.__aboutDebug.state,overflow:document.documentElement.scrollWidth>innerWidth}));
+ if(await mobile.locator('#motion').isVisible())await mobile.locator('#motion').click();await mobile.evaluate(()=>{window.dispatchEvent(new DeviceOrientationEvent('deviceorientation',{beta:0,gamma:0}));window.dispatchEvent(new DeviceOrientationEvent('deviceorientation',{beta:15,gamma:12}));});await mobile.waitForTimeout(400);const gyro=await mobile.evaluate(()=>window.__aboutDebug.state.gyro);
+ const report={errors,initial,moved,hover,waves,visibleAvoidLines:avoid.length,contact,sound,mobile:mobileState,simulatedGyro:gyro};fs.writeFileSync('docs/qa-report.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));await browser.close();if(errors.length)process.exitCode=1;
+})().catch(e=>{console.error(e);process.exit(1)});

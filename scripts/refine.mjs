@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+let css=fs.readFileSync('dist/style.css','utf8');css=css.replace('header{inset:10px}','header{inset:10px 10px auto}');fs.writeFileSync('dist/style.css',css);
+let html=fs.readFileSync('dist/index.html','utf8');html=html.replace('<title>','<link rel="icon" href="data:,">\n  <title>');fs.writeFileSync('dist/index.html',html);
+let js=fs.readFileSync('dist/app.js','utf8');
+js=js.replace("const heroSize=mobile?Math.min(width*.091,39):Math.min(width*.052,76),hero=profile.introduction.split('\\n'),leading=heroSize*1.12;", "let heroSize=mobile?Math.min(width*.091,39):Math.min(width*.052,76);const hero=profile.introduction.split('\\n');measuring.font=`${heroSize}px Editorial`;const longest=Math.max(...hero.map(s=>measuring.measureText(s).width));heroSize*=Math.min(1,width*.90/longest);const leading=heroSize*1.15;");
+js=js.replace("columnWidth=mobile?Math.min(165,width*.43):Math.min(365,width*.28)","columnWidth=mobile?Math.max(82,width/2-82):Math.min(330,width*.28)");
+js=js.replace("const rx=mobile?79:135,ry=mobile?115:163","const rx=mobile?65:125,ry=mobile?108:150");
+js=js.replace("(mobile?145:200)/180", "(mobile?125:200)/180");
+js=js.replace("const rightTop=mobile?top+left.length*lineHeight+30:top;", "const rightTop=mobile?top+left.length*lineHeight+30:top;if(mobile){const section=main.querySelectorAll('section')[sec];section.style.height=`${Math.max(height*1.1,rightTop+right.length*lineHeight+160)}px`;section.style.maxHeight='none';}");
+js=js.replace("updateText(1);}","sectionTops=[...main.querySelectorAll('section')].map(s=>s.offsetTop);updateText(1);}");
+js=js.replace("lastLayoutW=width;layoutH=height;clearText();", "lastLayoutW=width;layoutH=height;clearText();if(!mobile)main.querySelectorAll('section').forEach(s=>{s.style.height='';s.style.maxHeight='';});");
+fs.writeFileSync('dist/app.js',js);
+let qa=fs.readFileSync('scripts/qa.cjs','utf8');qa=qa.replace('top:1050','top:850');qa=qa.replace("await mobile.goto('http://127.0.0.1:4173/about'", "await mobile.addInitScript(()=>{if(window.DeviceOrientationEvent)DeviceOrientationEvent.requestPermission=async()=> 'granted';});await mobile.goto('http://127.0.0.1:4173/about'");qa=qa.replace("await mobile.evaluate(()=>{window.dispatchEvent", "if(await mobile.locator('#motion').isVisible())await mobile.locator('#motion').click();await mobile.evaluate(()=>{window.dispatchEvent");qa=qa.replace("console.error(e);process.exit(1)","console.error(e);process.exit(1)");fs.writeFileSync('scripts/qa.cjs',qa);
