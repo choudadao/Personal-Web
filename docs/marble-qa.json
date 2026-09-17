@@ -1,0 +1,46 @@
+{
+  "errors": [],
+  "initial": {
+    "variant": "marble",
+    "width": 1440,
+    "height": 1000,
+    "scroll": 0,
+    "hover": 0,
+    "gyro": false,
+    "waves": 0,
+    "textLines": 54,
+    "avatarLoaded": true
+  },
+  "inside": {
+    "state": {
+      "variant": "marble",
+      "width": 1440,
+      "height": 1000,
+      "scroll": 0,
+      "hover": 0.9998492066196142,
+      "gyro": false,
+      "waves": 0,
+      "textLines": 54,
+      "avatarLoaded": true
+    },
+    "radius": 38,
+    "amount": 0.9998492066196142
+  },
+  "outside": 0.000005034481467432314,
+  "baseline": {
+    "state": {
+      "variant": "original",
+      "width": 1440,
+      "height": 1000,
+      "scroll": 0,
+      "hover": 0,
+      "gyro": false,
+      "waves": 0,
+      "textLines": 54,
+      "avatarLoaded": true
+    },
+    "hasMarble": false
+  },
+  "touchAmount": 0.9999172428381984,
+  "released": 0.0001233995910415548
+}

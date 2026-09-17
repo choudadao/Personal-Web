@@ -1,0 +1,25 @@
+const {chromium}=require('playwright');
+const fs=require('fs');
+const assert=require('node:assert/strict');
+(async()=>{
+ const browser=await chromium.launch({headless:true,channel:'msedge'});
+ const page=await browser.newPage({viewport:{width:1440,height:1000},deviceScaleFactor:1});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+ await page.goto('http://127.0.0.1:4173/marble',{waitUntil:'networkidle'});
+ await page.waitForFunction(()=>window.__aboutDebug?.state.avatarLoaded);await page.waitForTimeout(1500);
+ const initial=await page.evaluate(()=>window.__aboutDebug.state);assert.equal(initial.variant,'marble');
+ await page.screenshot({path:'docs/marble-idle.png'});
+ await page.mouse.move(706,515);await page.waitForTimeout(600);await page.screenshot({path:'docs/marble-reveal.png'});
+ const inside=await page.evaluate(()=>({state:window.__aboutDebug.state,radius:window.__aboutDebug.marbleReveal.uniforms.uRevealRadius.value,amount:window.__aboutDebug.marbleReveal.uniforms.uRevealAmount.value}));assert(inside.amount>.9);
+ await page.mouse.move(745,480);await page.waitForTimeout(600);await page.screenshot({path:'docs/marble-reveal-right.png'});
+ await page.mouse.move(1100,200);await page.waitForTimeout(1000);const outside=await page.evaluate(()=>window.__aboutDebug.marbleReveal.uniforms.uRevealAmount.value);assert(outside<.01);
+ await page.locator('#avatar-control').click();await page.waitForTimeout(250);await page.screenshot({path:'docs/marble-ripple.png'});assert.equal(await page.evaluate(()=>window.__aboutDebug.state.waves),1);
+ await page.evaluate(()=>scrollTo({top:850,behavior:'instant'}));await page.waitForTimeout(1400);await page.screenshot({path:'docs/marble-scroll.png'});
+ const original=await browser.newPage({viewport:{width:1440,height:1000}});await original.goto('http://127.0.0.1:4173/about',{waitUntil:'networkidle'});await original.waitForFunction(()=>window.__aboutDebug?.state.avatarLoaded);await original.waitForTimeout(1400);
+ const baseline=await original.evaluate(()=>({state:window.__aboutDebug.state,hasMarble:!!window.__aboutDebug.marbleReveal}));assert.equal(baseline.state.variant,'original');assert.equal(baseline.hasMarble,false);await original.screenshot({path:'docs/original-retained.png'});
+ const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:2});mobile.on('pageerror',e=>errors.push(e.message));await mobile.goto('http://127.0.0.1:4173/marble',{waitUntil:'networkidle'});await mobile.waitForFunction(()=>window.__aboutDebug?.state.avatarLoaded);await mobile.waitForTimeout(1500);await mobile.screenshot({path:'docs/marble-mobile.png'});
+ await mobile.locator('#avatar-control').dispatchEvent('pointerdown',{pointerType:'touch',clientX:195,clientY:422});await mobile.waitForTimeout(600);await mobile.screenshot({path:'docs/marble-mobile-reveal.png'});const touchAmount=await mobile.evaluate(()=>window.__aboutDebug.marbleReveal.uniforms.uRevealAmount.value);assert(touchAmount>.9);
+ await mobile.locator('#avatar-control').dispatchEvent('pointerup',{pointerType:'touch',clientX:195,clientY:422});await mobile.waitForTimeout(750);const released=await mobile.evaluate(()=>window.__aboutDebug.marbleReveal.uniforms.uRevealAmount.value);assert(released<.01);
+ assert.equal(await mobile.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);assert.deepEqual(errors,[]);
+ const report={errors,initial,inside,outside,baseline,touchAmount,released};fs.writeFileSync('docs/marble-qa.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

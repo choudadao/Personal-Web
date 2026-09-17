@@ -2,6 +2,7 @@
   "errors": [],
   "initial": {
     "state": {
+      "variant": "original",
       "width": 1440,
       "height": 1000,
       "scroll": 0,
@@ -19,12 +20,12 @@
     ]
   },
   "moved": [
-    -0.34972965783526816,
-    0.47810264731845187,
-    0.08127745004413688,
+    -0.3497293873578873,
+    0.47810227755869905,
+    0.08127738718497887,
     "XYZ"
   ],
-  "hover": 0.996303615133214,
+  "hover": 0.9963080481347213,
   "waves": 1,
   "visibleAvoidLines": 9,
   "contact": {
@@ -34,9 +35,10 @@
   "sound": "true",
   "mobile": {
     "state": {
+      "variant": "original",
       "width": 390,
       "height": 844,
-      "scroll": 859.9999643680416,
+      "scroll": 859.9999564093383,
       "hover": 0,
       "gyro": false,
       "waves": 0,

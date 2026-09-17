@@ -1,0 +1,31 @@
+import fs from 'node:fs';
+let app=fs.readFileSync('dist/app.js','utf8');
+app=app.replace("import { profile } from './content.js';", "import { profile } from './content.js';\nimport { createMarbleReveal } from './marble-material.js';\nconst marbleVersion=document.body.dataset.variant==='marble';");
+app=app.replace("const camera=new THREE.OrthographicCamera", "const marbleReveal=marbleVersion?createMarbleReveal(renderer,avatarScene,profile.avatar.marble):null;\nconst camera=new THREE.OrthographicCamera");
+app=app.replace("model.traverse(o=>{if(o.isMesh){const materials", "if(marbleReveal){marbleReveal.apply(model);await marbleReveal.loadMaps();}\n model.traverse(o=>{if(o.isMesh){const materials");
+app=app.replace("const glow=chromeMaterial();material.onBeforeCompile=glow.onBeforeCompile;", "if(!marbleVersion){const glow=chromeMaterial();material.onBeforeCompile=glow.onBeforeCompile;}");
+app=app.replace("loadedMixer?.update(dt);", "marbleReveal?.update(mouse,hover,width,height);loadedMixer?.update(dt);");
+// Touch-and-hold reveals locally on the new page without changing baseline controls.
+app=app.replace("$('#avatar-control').addEventListener('click',hit);", `$('#avatar-control').addEventListener('click',hit);
+if(marbleVersion){
+  const control=$('#avatar-control');
+  const touchPoint=e=>{if(e.pointerType==='touch'){mouse.set(e.clientX/width*2-1,-e.clientY/height*2+1);idleTime=performance.now();}};
+  control.addEventListener('pointerdown',touchPoint);control.addEventListener('pointermove',touchPoint);
+  const release=e=>{if(e.pointerType==='touch')mouse.set(10,10);};
+  window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);
+}`);
+app=app.replace("window.__aboutDebug={renderer,scene,avatar,profile,hit,", "window.__aboutDebug={renderer,scene,avatar,profile,hit,marbleReveal,");
+app=app.replace("return {width,height,scroll,hover,gyro,", "return {variant:marbleVersion?'marble':'original',width,height,scroll,hover,gyro,");
+fs.writeFileSync('dist/app.js',app);
+let content=fs.readFileSync('dist/content.js','utf8');content=content.replace("offsetY: 0 }", "offsetY: 0, marble: { radius: 38, mobileRadius: 28, feather: 10, albedo: null, roughness: null, repeat: 1.5 } }");fs.writeFileSync('dist/content.js',content);
+let html=fs.readFileSync('dist/index.html','utf8');
+html=html.replace('<body>', '<body data-variant="original">');
+html=html.replace('  <div id="stage"', '  <div class="version-switch" aria-label="Compare avatar materials"><a href="/about" data-version="original">Original</a><a href="/marble" data-version="marble" target="_blank" rel="noopener">Marble ↗</a></div>\n  <div id="stage"');
+fs.writeFileSync('dist/index.html',html);fs.writeFileSync('dist/about/index.html',html);
+fs.mkdirSync('dist/marble',{recursive:true});
+const marbleHtml=html.replace('data-variant="original"','data-variant="marble"').replace('<title>Personal — About</title>','<title>Personal — Marble study</title>').replace('href="/about" data-version="original"','href="/about" data-version="original" target="_blank" rel="noopener"').replace('data-version="marble" target="_blank" rel="noopener"','data-version="marble"').replace('Marble ↗','Marble').replace('Move closer. Say hello.','Move to uncover. Click to ripple.');
+fs.writeFileSync('dist/marble/index.html',marbleHtml);
+fs.appendFileSync('dist/style.css', '\n.version-switch{position:fixed;right:60px;top:13px;z-index:12;display:flex;gap:4px;font:11px Arial,sans-serif}.version-switch a{padding:6px 8px;border-radius:3px;color:#777;background:rgba(242,242,242,.85);backdrop-filter:blur(12px)}.version-switch a:hover{color:#111;background:#e9e9e9}body[data-variant="original"] [data-version="original"],body[data-variant="marble"] [data-version="marble"]{color:#111;background:#e6e6e6}@media(max-width:900px){.version-switch{top:52px;right:12px}}\n');
+let server=fs.readFileSync('server.mjs','utf8');server=server.replace("const file=path.resolve", "if(pathname==='/marble'||pathname==='/marble/')pathname='/marble/index.html';const file=path.resolve");fs.writeFileSync('server.mjs',server);
+const pkg=JSON.parse(fs.readFileSync('package.json'));pkg.scripts.check+=' && node --check dist/marble-material.js';fs.writeFileSync('package.json',JSON.stringify(pkg,null,2)+'\n');
+fs.appendFileSync('README.md', '\n## Material comparison\n\n`/about` keeps the original textured avatar and blue hover. `/marble` is a separate experiment: polished procedural black marble, with the original texture revealed only within a soft circular cursor mask. Both retain pointer/orientation tracking, click waves, refraction, and text avoidance. Touch and hold the avatar to reveal locally on mobile.\n\nThe premium Textures.com PBR0429 file is not included. The default is an independently authored procedural approximation. To use your licensed maps, put web-ready files in `dist/assets/` and set `avatar.marble.albedo` / `roughness` in `dist/content.js`; albedo uses triplanar projection. `radius`, `mobileRadius` and `feather` are CSS pixels.\n');
