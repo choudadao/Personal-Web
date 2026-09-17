@@ -29,3 +29,13 @@ Validation and known fidelity differences are recorded in `docs/IMPLEMENTATION.m
 `/about` keeps the original textured avatar and blue hover. `/marble` is a separate experiment: polished procedural black marble, with the original texture revealed only within a soft circular cursor mask. Both retain pointer/orientation tracking, click waves, refraction, and text avoidance. Touch and hold the avatar to reveal locally on mobile.
 
 The premium Textures.com PBR0429 file is not included. The default is an independently authored procedural approximation. To use your licensed maps, put web-ready files in `dist/assets/` and set `avatar.marble.albedo` / `roughness` in `dist/content.js`; albedo uses triplanar projection. `radius`, `mobileRadius` and `feather` are CSS pixels.
+
+## Camera mirror comparison
+
+`/mirror` adds polished chrome with optional live camera reflection. It keeps the existing pointer/gyro tracking, blue hover, click ripple and text avoidance. The other versions never instantiate the camera controller.
+
+Click Enable camera on an HTTPS URL (or localhost). Camera access requests video only, never a microphone. Video is rendered locally; no frames are uploaded or recorded. Switch camera requests the opposite facing mode when available. Stop, page exit, hidden tab and WebGL loss release the stream. Returning to the page requires explicitly enabling the camera again. Denied permission, missing hardware or playback failure leaves a studio-lit chrome model with a retry message.
+
+The camera supplies only one view. Reflection directions are computed from the actual mesh normals and mapped into that live frame as an approximate environment. This is not a 360-degree capture, AR world reconstruction or physically exact mirror.
+
+The referenced Poliigon Shiny Chrome 3157 is Premium. Its downloadable maps are not bundled. Clean PBR chrome approximates its finish; licensed maps can be configured via `avatar.mirror.albedo`, `normal`, `roughnessMap` and `metalnessMap`.

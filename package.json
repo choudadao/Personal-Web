@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
-    "check": "node --check dist/app.js && node --check dist/content.js && node --check server.mjs && node --check dist/marble-material.js"
+    "check": "node --check dist/app.js && node --check dist/content.js && node --check server.mjs && node --check dist/marble-material.js && node --check dist/camera-mirror.js"
   },
   "devDependencies": {
     "@gltf-transform/core": "^4.5.0",

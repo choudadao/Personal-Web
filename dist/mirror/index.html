@@ -5,24 +5,29 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="data:,">
-  <title>Personal — About</title>
+  <title>Personal — Camera mirror</title>
   <meta name="description" content="A personal exploration of design, craft and curiosity.">
   <link rel="stylesheet" href="/style.css">
   <script type="importmap">{"imports":{"three":"/vendor/three.module.js","three/addons/":"/vendor/addons/"}}</script>
 </head>
-<body data-variant="original">
+<body data-variant="mirror">
   <header>
     <a class="monogram" href="#top" aria-label="Back to top">P .D</a>
     <nav aria-label="Page navigation"><a href="#intro">Introduction<sup>1</sup></a><a href="#quality">Perspective<sup>2</sup></a><a href="#contact">Contact<sup>3</sup></a></nav>
     <button id="sound" aria-label="Turn sound on" aria-pressed="false"><span class="sound-bars"><i></i><i></i><i></i><i></i></span></button>
   </header>
-  <div class="version-switch" aria-label="Compare avatar materials"><a href="/about" data-version="original">Original</a><a href="/marble" data-version="marble" target="_blank" rel="noopener">Marble ↗</a><a href="/mirror" data-version="mirror" target="_blank" rel="noopener">Mirror ↗</a></div>
+  <div class="version-switch" aria-label="Compare avatar materials"><a href="/about" data-version="original" target="_blank" rel="noopener">Original</a><a href="/marble" data-version="marble" target="_blank" rel="noopener">Marble ↗</a><a href="/mirror" data-version="mirror">Mirror</a></div>
   <div id="stage" aria-hidden="true"></div>
   <main id="content"></main>
   <button id="avatar-control" aria-label="Interact with the 3D avatar" title="Click to say hello"></button>
   <button id="motion" hidden>Enable motion</button>
-  <div class="bottom-left"><span id="hint">Move closer. Say hello.</span></div>
+  <div class="bottom-left"><span id="hint">Your world, reflected.</span></div>
   <div class="bottom-right"><span id="chapter-number">001</span><span class="progress-track"><i id="progress"></i></span></div>
+  <aside id="camera-panel" class="camera-panel" aria-label="Camera reflection controls">
+    <div class="camera-top"><video id="mirror-video" playsinline muted autoplay hidden aria-label="Local camera preview"></video><div><p class="camera-title">A mirror of your world.</p><p id="camera-status" role="status" aria-live="polite">Studio reflection · camera off</p></div></div>
+    <div class="camera-actions"><button id="camera-start" type="button">Enable camera</button><button id="camera-switch" type="button" hidden>Switch camera</button><button id="camera-stop" type="button" hidden>Stop</button></div>
+    <p class="camera-note">Live on your device. No recording or uploads.</p>
+  </aside>
   <div id="loading" role="status">A little perspective<span>Loading the experience</span></div>
   <script type="module" src="/app.js"></script>
 </body>

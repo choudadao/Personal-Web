@@ -1,0 +1,42 @@
+{
+  "virtualCamera": true,
+  "errors": [],
+  "live": {
+    "phase": "live",
+    "facing": "user",
+    "liveFrames": 26,
+    "reflectionMix": 0.9999652176331739,
+    "activeTracks": 1,
+    "audioTracks": 0
+  },
+  "changedChannels": 32410,
+  "rotation": 0.4696902248225569,
+  "switched": {
+    "firstEnded": true,
+    "requested": "environment",
+    "state": {
+      "phase": "live",
+      "facing": "environment",
+      "liveFrames": 1,
+      "reflectionMix": 0.1250600293942845,
+      "activeTracks": 1,
+      "audioTracks": 0
+    }
+  },
+  "stopped": {
+    "state": {
+      "phase": "off",
+      "facing": "environment",
+      "liveFrames": 2,
+      "reflectionMix": 0,
+      "activeTracks": 0,
+      "audioTracks": 0
+    },
+    "allEnded": true,
+    "videoDetached": true
+  },
+  "deniedStatus": "Camera not allowed. Enable permission in Safari or Chrome, then retry.",
+  "cancelledLateStreamsStopped": true,
+  "mobileOverflow": false,
+  "physicalDeviceTested": false
+}
