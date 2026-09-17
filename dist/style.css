@@ -7,3 +7,11 @@
 
 body[data-variant="mirror"] [data-version="mirror"]{color:#111;background:#e6e6e6}
 .camera-panel{position:fixed;bottom:58px;left:50%;transform:translateX(-50%);z-index:9;width:340px;max-width:calc(100vw - 32px);padding:16px 18px 12px;border:1px solid #e7e7e7;border-radius:8px;background:rgba(255,255,255,.91);backdrop-filter:blur(20px);box-shadow:0 5px 30px #00000006}.camera-top{display:flex;align-items:center;gap:12px}.camera-title{font:23px var(--serif);margin:0 0 5px}.camera-panel #camera-status{font:12px/1.5 Arial;color:#666;margin:0}.camera-actions{display:flex;gap:7px;margin-top:13px}.camera-actions button{font:12px Arial;border:0;border-radius:4px;padding:10px 13px;background:#eeeeef;cursor:pointer}.camera-actions button:hover{background:#e1e1e4}.camera-actions #camera-start{background:#171719;color:white}.camera-actions button:disabled{opacity:.55;cursor:wait}.camera-note{font:10px/1.4 Arial;color:#85858a;margin:10px 0 0}.camera-panel video{width:66px;height:54px;object-fit:cover;border-radius:5px;background:#eee}.camera-panel [hidden]{display:none!important}@media(max-width:640px){.camera-panel{bottom:64px;width:310px;padding:13px 15px 10px}.camera-title{font-size:21px}.camera-panel #camera-status{font-size:11px}.camera-actions{margin-top:10px}.camera-actions button{padding:10px 12px}}
+
+/* Once mobile camera access succeeds, retain only compact camera controls. */
+@media(max-width:640px){
+ .camera-panel[data-state="live"]{width:auto;padding:6px 8px;border-radius:24px;}
+ .camera-panel[data-state="live"] .camera-top,.camera-panel[data-state="live"] .camera-note{display:none;}
+ .camera-panel[data-state="live"] .camera-actions{margin:0;}
+ .camera-panel[data-state="live"] .camera-actions button{border-radius:18px;}
+}

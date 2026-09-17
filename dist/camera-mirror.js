@@ -15,7 +15,7 @@ export function createCameraMirror(renderer, scene, settings = {}) {
   empty.needsUpdate = true;
   const uniforms = {
     uCameraFeed: {value: empty}, uCameraLive: {value: 0}, uCameraMirror: {value: 1},
-    uCameraAspect: {value: 4/3}, uMirrorHover: {value: 0},
+    uCameraBlur: {value: (settings.roughness??.22)*.12}, uCameraAspect: {value: 4/3}, uMirrorHover: {value: 0},
     uMirrorPoint: {value: new THREE.Vector3()}, uMirrorRadius: {value: 35},
   };
 
@@ -33,14 +33,14 @@ export function createCameraMirror(renderer, scene, settings = {}) {
   function apply(model) {
     model.traverse(object => {
       if(!object.isMesh)return;
-      const material=new THREE.MeshPhysicalMaterial({color:0xe3e6eb,metalness:1,roughness:settings.roughness??.055,envMapIntensity:1.25,clearcoat:.15,clearcoatRoughness:.045,side:THREE.DoubleSide});
+      const material=new THREE.MeshPhysicalMaterial({color:0xe3e6eb,metalness:1,roughness:settings.roughness??.22,envMapIntensity:1.25,clearcoat:.05,clearcoatRoughness:.22,side:THREE.DoubleSide});
       material.customProgramCacheKey=()=> 'camera-chrome-reflection-v1';
       material.onBeforeCompile=shader=>{
         Object.assign(shader.uniforms,uniforms);
         shader.vertexShader='varying vec3 vMirrorWorld;\n'+shader.vertexShader;
         shader.vertexShader=shader.vertexShader.replace('#include <project_vertex>','#include <project_vertex>\nvMirrorWorld=(modelMatrix*vec4(transformed,1.)).xyz;');
         shader.fragmentShader=`uniform sampler2D uCameraFeed;
-          uniform float uCameraLive,uCameraMirror,uCameraAspect,uMirrorHover,uMirrorRadius;
+          uniform float uCameraLive,uCameraMirror,uCameraAspect,uMirrorHover,uMirrorRadius,uCameraBlur;
           uniform vec3 uMirrorPoint;varying vec3 vMirrorWorld;\n`+shader.fragmentShader;
         shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>', `
           // Reflect the camera ray using the actual per-fragment surface normal.
@@ -54,7 +54,14 @@ export function createCameraMirror(renderer, scene, settings = {}) {
           else cameraUv.y=(cameraUv.y-.5)*uCameraAspect+.5;
           cameraUv=clamp(cameraUv,.003,.997);
           cameraUv.x=mix(cameraUv.x,1.-cameraUv.x,uCameraMirror);
-          vec3 liveColor=pow(max(texture2D(uCameraFeed,cameraUv).rgb,vec3(0.)),vec3(2.2));
+          // A small weighted filter softens the live reflection as well as the studio material.
+          vec3 liveColor=vec3(0.);
+          vec2 blurStep=vec2(uCameraBlur/max(uCameraAspect,.1),uCameraBlur);
+          for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++){
+            float weight=float((x==0?2:1)*(y==0?2:1))/16.;
+            vec2 sampleUv=clamp(cameraUv+vec2(float(x),float(y))*blurStep,.003,.997);
+            liveColor+=pow(max(texture2D(uCameraFeed,sampleUv).rgb,vec3(0.)),vec3(2.2))*weight;
+          }
           float fresnel=.84+.16*pow(1.-max(dot(normal,normalize(vViewPosition)),0.),5.);
           vec3 liveChrome=liveColor*vec3(.94,.96,1.)*fresnel*1.2;
           // Keep a little studio reflection so grazing angles retain a chrome silhouette.

@@ -4,7 +4,7 @@ export const profile = {
   title: 'Independent designer',
   introduction: 'Turning curious ideas into\nthoughtful digital experiences\nwith a little personality.',
   location: 'Working at the intersection of design & technology',
-  avatar: { url: '/assets/avatar.glb', matcap: null, scale: 1, rotationY: 0, offsetY: 0, marble: { radius: 38, mobileRadius: 28, feather: 10, albedo: null, roughness: null, repeat: 1.5 }, mirror: { roughness: .055, albedo: null, normal: null, roughnessMap: null, metalnessMap: null } },
+  avatar: { url: '/assets/avatar.glb', matcap: null, scale: 1, rotationY: 0, offsetY: 0, marble: { radius: 38, mobileRadius: 28, feather: 10, albedo: null, roughness: null, repeat: 1.5 }, mirror: { roughness: .22, albedo: null, normal: null, roughnessMap: null, metalnessMap: null } },
   chapters: [
     {id:'quality', label:'Ch. One', numeral:'I', title:'Quality', left:'I am drawn to work that feels considered. A clear idea, a thoughtful detail, and the patience to bring the two together. Every project is a chance to make something useful, personal, and worth spending time with.', right:'My approach begins with questions and takes shape through making. I explore, refine, and keep returning to what matters. The aim is simple: a result where every part feels like it belongs.'},
     {id:'feel', label:'Ch. Two', numeral:'II', title:'Feel', left:'An experience is more than what appears on a screen. It is the pace of a transition, the response to a gesture, and the small moments that make something feel natural. Those are the details I like to explore.', right:'I look for a balance between clarity and character. A quiet composition can still be playful. A useful interaction can still be surprising. Good work leaves room for both.'},
