@@ -2,6 +2,8 @@
 
 A Three.js About page inspired by the interaction structure at gionatannese.com/about.
 
+This repository is also the working foundation for a multilingual personal portfolio focused on job seeking, freelance work, creative projects, and interactive experiments. Before continuing on another computer or in a new AI session, read `AGENTS.md`, `docs/PROJECT_MEMORY.md`, and `docs/CURRENT_STATE.md`. Editable portfolio planning content is stored in `content/个人作品网站内容管理.xlsx`.
+
 Run `npm run dev`, then open http://127.0.0.1:4173/about.
 
 ## Replace your assets
