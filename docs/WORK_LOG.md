@@ -2,6 +2,15 @@
 
 Use one entry per meaningful change. Keep entries concise and factual. Newest entries go first.
 
+## 2026-09-21 — Automatic memory closeout rule
+
+- Strengthened `AGENTS.md` with a mandatory end-of-task checklist for AI collaborators.
+- AI must now classify each change, update the applicable memory files automatically, append the work log, verify documentation against Git state, and report which memory files changed.
+- No runtime website behavior or content changed.
+- Verification: reviewed repository instructions and confirmed the working tree only contains this documentation update.
+- GitHub: included in this documentation commit.
+- Deployment: not required because the runtime site is unchanged.
+
 ## 2026-09-21 — Repository memory and content framework
 
 - Added durable project goals, current state, content workflow, and AI handoff instructions.
@@ -38,3 +47,4 @@ Use one entry per meaningful change. Keep entries concise and factual. Newest en
 - Built the independent Three.js About page with the supplied optimized avatar.
 - Added pointer/device orientation, hover glow, ripple/refraction, and text avoidance.
 - Commit: `b65868d`.
+
