@@ -5,12 +5,12 @@
     "phase": "live",
     "facing": "user",
     "liveFrames": 26,
-    "reflectionMix": 0.9999652454479401,
+    "reflectionMix": 0.9999652176331739,
     "activeTracks": 1,
     "audioTracks": 0
   },
-  "changedChannels": 30654,
-  "rotation": 0.4696902248225572,
+  "changedChannels": 30369,
+  "rotation": 0.4696814384326943,
   "switched": {
     "firstEnded": true,
     "requested": "environment",

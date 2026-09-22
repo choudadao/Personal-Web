@@ -2,7 +2,7 @@
   "errors": [],
   "initial": {
     "state": {
-      "variant": "original",
+      "variant": "marble",
       "width": 1440,
       "height": 1000,
       "scroll": 0,
@@ -20,12 +20,12 @@
     ]
   },
   "moved": [
-    -0.3497296578352682,
-    0.478102647318452,
-    0.08127745004413685,
+    -0.3497710076874212,
+    0.4781591751917327,
+    0.08128705978259457,
     "XYZ"
   ],
-  "hover": 0.9963036151332141,
+  "hover": 0.9969821179452504,
   "waves": 1,
   "visibleAvoidLines": 9,
   "contact": {
@@ -35,10 +35,10 @@
   "sound": "true",
   "mobile": {
     "state": {
-      "variant": "original",
+      "variant": "marble",
       "width": 390,
       "height": 844,
-      "scroll": 859.999976162906,
+      "scroll": 859.9999708386866,
       "hover": 0,
       "gyro": false,
       "waves": 0,

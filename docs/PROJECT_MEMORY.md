@@ -52,11 +52,11 @@ A future importer should validate IDs, language coverage, status, public scope, 
 
 ## Durable route decisions
 
-- `/about`: original textured avatar comparison.
-- `/marble`: procedural black-marble avatar with circular original-texture reveal.
+- `/` and `/about`: aliases of the marble direction so existing links remain valid.
+- `/marble`: procedural black-marble avatar with a circular monochrome graphite surface shift.
 - `/mirror`: softened chrome avatar with optional local live-camera reflection.
 
-These are currently comparison pages and should remain independently testable. A future `/lab` page may collect their links without removing the individual routes.
+Marble and mirror are the two public comparison pages and should remain independently testable. The colored material version is intentionally withdrawn because it felt too plastic and visually weakened the portfolio. Do not restore it without a new visual direction. A future `/lab` page may collect material studies without removing the individual routes.
 
 ## Asset and privacy constraints
 
@@ -71,6 +71,7 @@ These are currently comparison pages and should remain independently testable. A
 - Public name, professional title, biography, email, social links, availability, and resume.
 - Launch languages, default locale, and language-switching behavior.
 - Default avatar material on the final home page.
+- Alternative restrained materials that better fit the experimental, warm portfolio direction.
 - Three to six selected projects and their publication permissions.
 - Whether Notes and Awards should launch.
 - Whether content updates remain an assisted build process or become a self-service spreadsheet import workflow.

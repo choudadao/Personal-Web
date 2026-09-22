@@ -10,7 +10,7 @@ This repository is an evolving personal portfolio website. Read these files befo
 
 ## Working rules
 
-- Preserve `/about`, `/marble`, and `/mirror` as independent comparison routes unless the user explicitly asks to merge or remove them.
+- Preserve `/marble` and `/mirror` as the public material comparisons. Keep `/` and `/about` as marble aliases for old links. Do not restore the colored material version unless the user explicitly requests it.
 - Keep the existing avatar interactions: pointer or device-orientation tracking, blue hover light, click ripple/refraction, and text avoidance.
 - Never invent biography, client names, project outcomes, metrics, awards, testimonials, contact details, or translations. Leave missing content blank or mark it as pending.
 - Treat the workbook in `content/` as the content-planning source. The current site does not import it automatically; code remains the runtime source until an importer is implemented.

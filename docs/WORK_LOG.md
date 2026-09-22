@@ -2,6 +2,15 @@
 
 Use one entry per meaningful change. Keep entries concise and factual. Newest entries go first.
 
+## 2026-09-22 — Colored material withdrawal and visual issue record
+
+- Recorded that the current model silhouette and colored treatment are not visually resolved and should be revisited in a later material exploration.
+- Removed the colored material from the public selector; `/` and `/about` now remain valid as marble aliases, while `/marble` and `/mirror` are the two public comparisons.
+- Replaced the marble route's circular colored-texture reveal with a monochrome graphite surface shift while retaining pointer/device tracking, blue hover light, click ripple/refraction, and text avoidance.
+- Verification: `npm run check`, default-page QA, marble QA, reveal-boundary QA, and virtual-camera QA passed; the marble idle and shifted states were visually reviewed.
+- GitHub: included in this task's material-direction commit.
+- Deployment: published to the existing private site after validation.
+
 ## 2026-09-22 — Skeptical Cap Girl avatar replacement
 
 - Replaced the shared avatar web asset with the user-supplied Skeptical Cap Girl FBX and its PBR textures; the source folder was left unchanged.

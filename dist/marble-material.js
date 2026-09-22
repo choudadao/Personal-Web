@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 // Independent procedural black marble, inspired by the supplied visual reference.
 // The premium Textures.com asset is not downloaded or redistributed.
-// Screen-space masking guarantees a circular reveal at every viewing angle.
+// Screen-space masking shifts between two monochrome surfaces at every viewing angle.
 export function createMarbleReveal(renderer, scene, settings = {}) {
   const uniforms = {
     uRevealPointer: { value: new THREE.Vector2(-10000, -10000) },
@@ -20,7 +20,7 @@ export function createMarbleReveal(renderer, scene, settings = {}) {
   };
 
   // A small generated studio reflection gives polished stone readable highlights.
-  // Only the marble page receives this environment; the original page is untouched.
+  // The marble page receives a restrained studio environment.
   const canvas = document.createElement('canvas');
   canvas.width = 1024; canvas.height = 512;
   const c = canvas.getContext('2d');
@@ -94,7 +94,7 @@ export function createMarbleReveal(renderer, scene, settings = {}) {
         material.metalness = Math.min(material.metalness ?? 0, .25);
         material.roughness = Math.max(material.roughness ?? .6, .4);
         material.envMapIntensity = .7;
-        material.customProgramCacheKey = () => 'marble-screen-reveal-v1';
+        material.customProgramCacheKey = () => 'marble-graphite-shift-v2';
         material.onBeforeCompile = shader => {
           Object.assign(shader.uniforms, uniforms); shader.uniforms.uStoneMin={value:localBounds.min.clone()};shader.uniforms.uStoneScale={value:1/Math.max(localSize.y,.001)};
           shader.vertexShader = 'varying vec3 vStonePosition;\n' + shader.vertexShader;
@@ -104,25 +104,27 @@ export function createMarbleReveal(renderer, scene, settings = {}) {
             #include <map_fragment>
             float cursorDistance=length(gl_FragCoord.xy / uRevealDpr-uRevealPointer);
             float revealMask=(1.-smoothstep(max(0.,uRevealRadius-uRevealFeather),uRevealRadius,cursorDistance))*uRevealAmount;
-            diffuseColor.rgb=mix(marbleAlbedo(vStonePosition),diffuseColor.rgb,revealMask);
+            vec3 stoneColor=marbleAlbedo(vStonePosition);
+            vec3 graphiteColor=mix(vec3(.032,.036,.043),stoneColor*.32,0.28);
+            diffuseColor.rgb=mix(stoneColor,graphiteColor,revealMask);
           `);
           shader.fragmentShader = shader.fragmentShader.replace('#include <roughnessmap_fragment>', `
             #include <roughnessmap_fragment>
             float stoneRoughness=.19;
             if(uUseMarbleRoughness>.5){stoneRoughness=clamp(texture2D(uMarbleRoughnessMap,(vStonePosition.xy-uStoneMin.xy)*uStoneScale*uMarbleRepeat).r,.08,.65);}
-            roughnessFactor=mix(stoneRoughness,roughnessFactor,revealMask);
+            roughnessFactor=mix(stoneRoughness,.48,revealMask);
           `);
           shader.fragmentShader = shader.fragmentShader.replace('#include <metalnessmap_fragment>', `
             #include <metalnessmap_fragment>
-            metalnessFactor=mix(.02,metalnessFactor,revealMask);
+            metalnessFactor=mix(.02,.12,revealMask);
           `);
           shader.fragmentShader = shader.fragmentShader.replace('#include <normal_fragment_maps>', `
             vec3 stoneSurfaceNormal=normal;
             #include <normal_fragment_maps>
-            normal=normalize(mix(stoneSurfaceNormal,normal,revealMask));
+            normal=stoneSurfaceNormal;
           `);
           shader.fragmentShader = shader.fragmentShader.replace('#include <opaque_fragment>', `
-            // Preserve the blue hover effect as a restrained rim around the reveal.
+            // Preserve the blue hover effect as a restrained rim around the surface shift.
             float blueRim=exp(-pow((cursorDistance-uRevealRadius*.85)/7.,2.))*uRevealAmount;
             outgoingLight+=vec3(.006,.018,.16)*blueRim;
             #include <opaque_fragment>

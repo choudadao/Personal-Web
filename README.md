@@ -28,7 +28,9 @@ Validation and known fidelity differences are recorded in `docs/IMPLEMENTATION.m
 
 ## Material comparison
 
-`/about` keeps the original textured avatar and blue hover. `/marble` is a separate experiment: polished procedural black marble, with the original texture revealed only within a soft circular cursor mask. Both retain pointer/orientation tracking, click waves, refraction, and text avoidance. Touch and hold the avatar to reveal locally on mobile.
+`/` and `/about` now open the marble direction so old links remain valid. `/marble` uses polished procedural black marble, with a monochrome graphite surface shift inside the soft circular pointer mask. `/mirror` remains the second public material experiment. Both retain pointer/orientation tracking, blue hover light, click waves, refraction, and text avoidance. Touch and hold the avatar to shift the surface locally on mobile.
+
+The colored material version was withdrawn after visual review because it did not support the intended portfolio tone. Its source textures remain embedded in the supplied model asset for future experiments, but the public interface does not expose that version.
 
 The premium Textures.com PBR0429 file is not included. The default is an independently authored procedural approximation. To use your licensed maps, put web-ready files in `dist/assets/` and set `avatar.marble.albedo` / `roughness` in `dist/content.js`; albedo uses triplanar projection. `radius`, `mobileRadius` and `feather` are CSS pixels.
 
