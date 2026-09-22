@@ -2,6 +2,15 @@
 
 Use one entry per meaningful change. Keep entries concise and factual. Newest entries go first.
 
+## 2026-09-22 — Skeptical Cap Girl avatar replacement
+
+- Replaced the shared avatar web asset with the user-supplied Skeptical Cap Girl FBX and its PBR textures; the source folder was left unchanged.
+- Converted the 40.5 MB FBX to GLB and optimized the web copy to about 2.3 MB, 68,018 triangles, with no animation clips.
+- The original, marble, and mirror routes continue to use the same shared avatar while retaining their existing interaction and material behavior.
+- Verification: `npm run check`, original-page QA, marble QA, reveal-boundary QA, and virtual-camera QA passed. Desktop and mobile renders were visually reviewed. Physical-device camera and motion testing remains manual.
+- GitHub: included in this task's avatar replacement commit.
+- Deployment: the same committed source is published to the existing private site after validation.
+
 ## 2026-09-21 — Automatic memory closeout rule
 
 - Strengthened `AGENTS.md` with a mandatory end-of-task checklist for AI collaborators.

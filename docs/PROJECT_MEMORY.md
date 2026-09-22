@@ -1,6 +1,6 @@
 # Project memory
 
-Last reviewed: 2026-09-21
+Last reviewed: 2026-09-22
 
 ## Product goal
 
@@ -44,7 +44,7 @@ A future importer should validate IDs, language coverage, status, public scope, 
 - Static ES modules served from `dist/`.
 - Three.js is vendored locally; no runtime CDN dependency.
 - Primary runtime content currently lives in `dist/content.js`.
-- User avatar web copy: `dist/assets/avatar.glb`.
+- User avatar web copy: `dist/assets/avatar.glb`; currently generated from the user-supplied Skeptical Cap Girl FBX and its PBR textures.
 - Local development command: `npm run dev`.
 - Syntax check: `npm run check`.
 - GitHub: `https://github.com/choudadao/Personal-Web.git`, branch `main`.

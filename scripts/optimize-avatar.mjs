@@ -4,6 +4,7 @@ import {weld,simplify,prune,dedup,textureCompress} from '@gltf-transform/functio
 import {MeshoptSimplifier} from 'meshoptimizer';
 import sharp from 'sharp';
 import fs from 'node:fs';
+import path from 'node:path';
 await MeshoptSimplifier.ready;
 const io=new NodeIO().registerExtensions(ALL_EXTENSIONS);
 const source=process.argv[2];
@@ -12,5 +13,5 @@ const doc=await io.read(source);
 await doc.transform(weld(),simplify({simplifier:MeshoptSimplifier,ratio:.08,error:.002}),dedup(),prune(),textureCompress({encoder:sharp,resize:[1024,1024],targetFormat:'jpeg',quality:85}));
 await io.write('dist/assets/avatar.glb',doc);
 const primitive=doc.getRoot().listMeshes()[0].listPrimitives()[0];
-const report={source,originalBytes:fs.statSync(source).size,optimizedBytes:fs.statSync('dist/assets/avatar.glb').size,vertices:primitive.getAttribute('POSITION').getCount(),triangles:primitive.getIndices().getCount()/3,animations:doc.getRoot().listAnimations().length};
+const report={source:path.basename(source),originalBytes:fs.statSync(source).size,optimizedBytes:fs.statSync('dist/assets/avatar.glb').size,vertices:primitive.getAttribute('POSITION').getCount(),triangles:primitive.getIndices().getCount()/3,animations:doc.getRoot().listAnimations().length};
 fs.writeFileSync('docs/avatar-optimization.json',JSON.stringify(report,null,2));console.log(report);
