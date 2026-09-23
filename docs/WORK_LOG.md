@@ -2,6 +2,15 @@
 
 Use one entry per meaningful change. Keep entries concise and factual. Newest entries go first.
 
+## 2026-09-23 — Uncompressed GLB fidelity trial
+
+- Replaced the reduced 2.3 MB avatar with the user-supplied 30.1 MB GLB without geometry or texture compression.
+- The trial asset contains 850,256 triangles, 452,778 vertices, three embedded textures, and no animation clips. The higher-density geometry visibly smooths the face and silhouette under the marble material.
+- Existing marble/mirror routes, pointer/device tracking, blue hover light, click ripple/refraction, text avoidance, and camera behavior remain unchanged.
+- Verification: syntax check and all focused interaction/camera QA passed. Local headless measurement reported about 60 fps at 1440×1000 and about 40 fps at a simulated 390×844 viewport with 2× device scale; real-device network and thermal performance remain to be checked.
+- GitHub: included in this task's uncompressed-model trial commit.
+- Deployment: published to the existing private site after validation.
+
 ## 2026-09-22 — Colored material withdrawal and visual issue record
 
 - Recorded that the current model silhouette and colored treatment are not visually resolved and should be revisited in a later material exploration.

@@ -10,14 +10,14 @@ The source was inspected through its public About module and desktop screenshots
 - Header: fixed compact navigation, neutral translucent backgrounds, serif labels, optional synthesized sound toggle. Links target the implemented About-page sections rather than unimplemented project pages.
 - Hero: white background, three centered serif lines, fixed central avatar drawn in front of type, smaller work descriptor underneath. Desktop type scales to 76px; mobile type scales to viewport.
 - Chapters: four sections, serif title with chapter markers, left/right line-anchored body text. Each line displaces away from an invisible central ellipse while scrolling; mobile paragraphs are staggered vertically.
-- Avatar: user's Skeptical Cap Girl FBX converted to an optimized textured static GLB and normalized to a fixed visual size; smooth pointer/orientation rotations, raycast-local blue shader, global click spring response. There are no animation clips in the supplied model.
+- Avatar: user's uncompressed Skeptical Cap Girl textured static GLB, normalized to a fixed visual size; smooth pointer/orientation rotations, raycast-local blue shader, global click spring response. The current 30.1 MB trial contains 850,256 triangles and no animation clips.
 - Material routes: `/` and `/about` alias `/marble`; the marble route shifts from polished black marble to monochrome graphite within the local pointer mask. `/mirror` uses softened chrome with optional camera reflection. The colored source material is not exposed in the public selector.
 - Refraction: offscreen text render target, three bounded radial waves with UV displacement, chromatic separation and a blue ring; avatar rendered afterward. The shader is independently authored and approximates the reference's expanding glass lens.
 - Closing: editable personal closing and optional real contact links; no fabricated contact information.
 
 ## Material ownership
 
-User avatar FBX and source texture maps stay unchanged in their original directory. A converted and reduced web copy is saved under `dist/assets/avatar.glb`. The previous procedural placeholder is an original geometric character and is used only as a load-error fallback. No reference-site model, proprietary font or identity assets are included.
+User source files stay unchanged in their original directory. The supplied uncompressed GLB is copied to `dist/assets/avatar.glb` for this fidelity trial. The previous procedural placeholder is an original geometric character and is used only as a load-error fallback. No reference-site model, proprietary font or identity assets are included.
 Libre Caslon Display is distributed with its OFL license. Three.js is distributed with its MIT license.
 
 ## Validation

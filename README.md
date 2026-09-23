@@ -16,13 +16,13 @@ Edit `dist/content.js` to change the monogram, intro, chapters, closing, real co
 - `avatar.offsetY`: vertical adjustment.
 - `avatar.matcap`: optional MatCap for the fallback character; the uploaded avatar uses its own original textures with scene lighting.
 
-The current avatar is a static textured user-supplied model. Pointer rotation and click recoil are procedural. Facial animation is not claimed. When animation clips are supplied later, idle/blink and hit/shake named clips are picked up by the loader; custom naming can be mapped in `loadAvatar()`.
+The current avatar is the user's uncompressed 30.1 MB GLB, used as a high-fidelity comparison. It contains about 850,000 triangles and three embedded textures. Pointer rotation and click recoil are procedural. Facial animation is not claimed. When animation clips are supplied later, idle/blink and hit/shake named clips are picked up by the loader; custom naming can be mapped in `loadAvatar()`.
 
 To replace fonts, update `@font-face` in `dist/style.css` and keep the `Editorial` family name, or update the text renderer accordingly. Content remains available as semantic HTML for assistive technology and WebGL fallback.
 
 ## Model optimization
 
-The source file is not modified. Run `node scripts/optimize-avatar.mjs "path/to/original.glb"` to generate the smaller web copy. This project uses local vendored Three.js; production has no CDN runtime dependency.
+The source file is not modified. The current web copy is intentionally uncompressed for visual comparison. `scripts/optimize-avatar.mjs` is retained as an optional experiment, but its aggressive reduction settings should not replace the current asset without visual review. This project uses local vendored Three.js; production has no CDN runtime dependency.
 
 Validation and known fidelity differences are recorded in `docs/IMPLEMENTATION.md` and `docs/qa-report.json`.
 

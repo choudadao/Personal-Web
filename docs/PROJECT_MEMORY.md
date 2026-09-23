@@ -44,7 +44,7 @@ A future importer should validate IDs, language coverage, status, public scope, 
 - Static ES modules served from `dist/`.
 - Three.js is vendored locally; no runtime CDN dependency.
 - Primary runtime content currently lives in `dist/content.js`.
-- User avatar web copy: `dist/assets/avatar.glb`; currently generated from the user-supplied Skeptical Cap Girl FBX and its PBR textures.
+- User avatar web copy: `dist/assets/avatar.glb`; currently the user-supplied uncompressed Skeptical Cap Girl GLB (about 30.1 MB, 850,256 triangles) used for fidelity testing.
 - Local development command: `npm run dev`.
 - Syntax check: `npm run check`.
 - GitHub: `https://github.com/choudadao/Personal-Web.git`, branch `main`.

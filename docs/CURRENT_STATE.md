@@ -6,7 +6,7 @@ Updated: 2026-09-22
 
 The repository contains a static Three.js About study with an optimized user-supplied avatar and two public material variants:
 
-The current avatar is the user-supplied Skeptical Cap Girl model converted from FBX with its color, normal, roughness, and metallic source maps, then optimized into `dist/assets/avatar.glb`. The web copy is about 2.3 MB, 68,018 triangles, and contains no animation clips.
+The current avatar is the user-supplied Skeptical Cap Girl GLB copied directly into `dist/assets/avatar.glb` without geometry or texture compression. It is 30,148,720 bytes, contains 850,256 triangles, 452,778 vertices, three embedded textures, and no animation clips. This is a high-fidelity trial replacing the earlier 2.3 MB / 68,018-triangle reduction.
 
 | Route | State | Behavior |
 | --- | --- | --- |
@@ -38,6 +38,7 @@ On mobile, the model is scaled to 1.5 times the earlier size and the text-avoida
 
 - The current Skeptical Cap Girl avatar has no animation clips; motion is procedural.
 - The current avatar silhouette and face treatment are not considered visually resolved; the user plans to revisit the model and material direction.
+- The uncompressed avatar transfers about 30.1 MB. Local automated measurement held about 60 fps at desktop size and about 40 fps in a simulated high-density mobile viewport; physical phones and real mobile networks may be slower.
 - A single phone camera is mapped as an approximate environment and cannot produce a physically correct 360-degree reflection.
 - Marble, graphite, and chrome are exploratory approximations rather than a final art direction, and do not include the referenced premium texture downloads.
 - The current project is an About experience, not yet a complete portfolio with Home, Work, Project detail, and Contact pages.
