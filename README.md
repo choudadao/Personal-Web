@@ -4,7 +4,9 @@ A Three.js About page inspired by the interaction structure at gionatannese.com/
 
 This repository is also the working foundation for a multilingual personal portfolio focused on job seeking, freelance work, creative projects, and interactive experiments. Before continuing on another computer or in a new AI session, read `AGENTS.md`, `docs/PROJECT_MEMORY.md`, and `docs/CURRENT_STATE.md`. Editable portfolio planning content is stored in `content/个人作品网站内容管理.xlsx`.
 
-Run `npm run dev`, then open http://127.0.0.1:4173/about.
+Run `npm ci` once to install the locked development dependencies, then run `npx playwright install chromium` once to install the browser used by automated QA. Run `npm run dev` and open http://127.0.0.1:4173/about.
+
+Use `npm run check` for JavaScript syntax validation. With the local preview running, use `npm run qa` for the complete browser QA suite, or run `npm run qa:about`, `npm run qa:marble`, `npm run qa:reveal-boundary`, or `npm run qa:camera` individually. The browser QA scripts use the Playwright-managed Chromium browser. They refresh the matching JSON evidence under `docs/`; screenshots are ignored by Git.
 
 ## Replace your assets
 
@@ -22,7 +24,7 @@ To replace fonts, update `@font-face` in `dist/style.css` and keep the `Editoria
 
 ## Model optimization
 
-The source file is not modified. The current web copy is intentionally uncompressed for visual comparison. `scripts/optimize-avatar.mjs` is retained as an optional experiment, but its aggressive reduction settings should not replace the current asset without visual review. This project uses local vendored Three.js; production has no CDN runtime dependency.
+The source file is not modified. The current web copy is intentionally uncompressed for visual comparison. `scripts/optimize-avatar.mjs` is retained as an optional experiment, but its aggressive reduction settings should not replace the current asset without visual review. Optimization metadata describes the source generically and does not retain its local absolute path. This project uses local vendored Three.js; production has no CDN runtime dependency.
 
 Validation and known fidelity differences are recorded in `docs/IMPLEMENTATION.md` and `docs/qa-report.json`.
 

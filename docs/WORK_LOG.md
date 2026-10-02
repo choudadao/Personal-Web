@@ -29,6 +29,20 @@ Use one entry per meaningful change. Keep entries concise and factual. Newest en
 - GitHub: included in this task's avatar replacement commit.
 - Deployment: the same committed source is published to the existing private site after validation.
 
+## 2026-09-21 — Reproducible browser QA setup and private source metadata
+
+- Replaced the avatar optimization record's local absolute source path with a generic description of the uncommitted user-provided model.
+- Declared Playwright and Sharp as direct development dependencies, added complete and focused `npm run qa` commands, and made the scripts use Playwright-managed Chromium.
+- Changed the marble pointer-exit and touch-release checks to wait for their final thresholds instead of assuming fixed machine-dependent delays; runtime interaction timing is unchanged.
+- Increased only the camera QA readiness timeouts to accommodate the later 30.1 MB uncompressed avatar trial; camera behavior and assertions are unchanged.
+- Made the high-density mobile camera case dispatch its start/stop clicks directly so Playwright actionability checks do not time out under heavy WebGL load; the same application handlers and outcomes remain covered.
+- Ignored Chromium's local `debug.log` output so browser diagnostics do not appear as project changes.
+- Updated setup, verification, implementation, and handoff documentation for the reproducible QA workflow.
+- Verification: dependency lock refreshed; `npm run check` and the complete `npm run qa` browser suite passed with Playwright-managed Chromium.
+- Commit: this reproducible browser QA setup commit.
+- GitHub: included in this QA setup commit and pushed to `main`.
+- Deployment: not required because runtime website behavior is unchanged.
+
 ## 2026-09-21 — Automatic memory closeout rule
 
 - Strengthened `AGENTS.md` with a mandatory end-of-task checklist for AI collaborators.

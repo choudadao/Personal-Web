@@ -5,12 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
-    "check": "node --check dist/app.js && node --check dist/content.js && node --check server.mjs && node --check dist/marble-material.js && node --check dist/camera-mirror.js"
+    "check": "node --check dist/app.js && node --check dist/content.js && node --check server.mjs && node --check dist/marble-material.js && node --check dist/camera-mirror.js",
+    "qa": "npm run qa:about && npm run qa:marble && npm run qa:reveal-boundary && npm run qa:camera",
+    "qa:about": "node scripts/qa.cjs",
+    "qa:marble": "node scripts/qa-marble.cjs",
+    "qa:reveal-boundary": "node scripts/qa-reveal-boundary.cjs",
+    "qa:camera": "node scripts/qa-camera.cjs"
   },
   "devDependencies": {
     "@gltf-transform/core": "^4.5.0",
     "@gltf-transform/extensions": "^4.5.0",
     "@gltf-transform/functions": "^4.5.0",
-    "meshoptimizer": "^1.2.0"
+    "meshoptimizer": "^1.2.0",
+    "playwright": "^1.63.0",
+    "sharp": "^0.35.4"
   }
 }

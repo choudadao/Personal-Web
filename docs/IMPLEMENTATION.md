@@ -22,6 +22,12 @@ Libre Caslon Display is distributed with its OFL license. Three.js is distribute
 
 ## Validation
 
-`npm run check` verifies JS syntax. `scripts/qa.cjs` checks runtime errors, model loading, cursor rotation, blue hover intensity, click waves, visible text avoidance, navigation, sound toggle, mobile overflow, and a simulated orientation event. Marble QA also checks that no colored-version link remains and that the circular surface shift does not alter pixels outside its boundary. Screenshots cover desktop/mobile, hover, ripple and scroll. Actual mobile sensor permissions require a physical device and HTTPS.
+`npm run check` verifies JS syntax. `npm run qa` runs the complete Playwright browser suite, while the four `npm run qa:*` commands run focused checks. Playwright and Sharp are direct development dependencies rather than relying on tools installed elsewhere or pulled in transitively. The scripts launch Playwright-managed Chromium, installed once with `npx playwright install chromium`, rather than relying on a separately installed system browser.
+
+`scripts/qa.cjs` checks runtime errors, model loading, cursor rotation, blue hover intensity, click waves, visible text avoidance, navigation, sound toggle, mobile overflow, and a simulated orientation event. Marble QA also checks that no colored-version link remains and that the circular surface shift does not alter pixels outside its boundary. Screenshots cover desktop/mobile, hover, ripple and scroll. Actual mobile sensor permissions require a physical device and HTTPS.
+
+The marble pointer-exit and touch-release assertions wait until the reveal easing reaches its final threshold. The touch release dispatches to the same global listener used by the runtime. These state-based checks avoid synthetic-event bubbling and machine-speed differences across Chromium versions and avatar asset sizes.
+
+Camera QA allows up to 90 seconds for the uncompressed avatar to become ready on each simulated page and up to 60 seconds for mobile virtual-camera frames. The high-density simulated mobile case dispatches button click events directly to avoid Playwright actionability delays under heavy WebGL load; it still verifies the same handlers, camera state, controls, and stream cleanup.
 
 The typeface, personal text, supplied avatar and a few secondary details intentionally differ from the source. Liquid-model formation and facial animations are not reproduced with the static supplied asset.

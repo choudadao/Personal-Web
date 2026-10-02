@@ -4,13 +4,13 @@
   "live": {
     "phase": "live",
     "facing": "user",
-    "liveFrames": 26,
-    "reflectionMix": 0.9999652176331739,
+    "liveFrames": 13,
+    "reflectionMix": 0.9944834355792392,
     "activeTracks": 1,
     "audioTracks": 0
   },
-  "changedChannels": 30488,
-  "rotation": 0.46969022482255685,
+  "changedChannels": 23273,
+  "rotation": 0.13479466785193855,
   "switched": {
     "firstEnded": true,
     "requested": "environment",
@@ -18,7 +18,7 @@
       "phase": "live",
       "facing": "environment",
       "liveFrames": 1,
-      "reflectionMix": 0.1250600293942845,
+      "reflectionMix": 0.3296799539643607,
       "activeTracks": 1,
       "audioTracks": 0
     }
@@ -27,7 +27,7 @@
     "state": {
       "phase": "off",
       "facing": "environment",
-      "liveFrames": 1,
+      "liveFrames": 9,
       "reflectionMix": 0,
       "activeTracks": 0,
       "audioTracks": 0

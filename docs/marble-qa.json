@@ -17,16 +17,16 @@
       "width": 1440,
       "height": 1000,
       "scroll": 0,
-      "hover": 0.9999749841266354,
+      "hover": 0.99177025295098,
       "gyro": false,
       "waves": 0,
       "textLines": 54,
       "avatarLoaded": true
     },
     "radius": 38,
-    "amount": 0.9999749841266354
+    "amount": 0.99177025295098
   },
-  "outside": 0.000002762982073256891,
+  "outside": 0.008229441146699521,
   "baseline": {
     "state": {
       "variant": "marble",
@@ -42,6 +42,6 @@
     "hasMarble": true,
     "originalLink": false
   },
-  "touchAmount": 0.9999795023435938,
-  "released": 0.00022540303356453589
+  "touchAmount": 0.9955139774751941,
+  "released": 0.008209485565176354
 }

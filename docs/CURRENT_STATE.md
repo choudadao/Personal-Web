@@ -28,11 +28,14 @@ On mobile, the model is scaled to 1.5 times the earlier size and the text-avoida
 ## Verification state
 
 - `npm run check` checks JavaScript syntax.
+- `npm run qa` runs all four browser QA scripts; focused `qa:*` commands are also available.
+- Playwright and Sharp are declared development dependencies. After `npm ci`, run `npx playwright install chromium` once; the QA scripts use that Playwright-managed browser instead of relying on a separately installed system browser.
 - `scripts/qa.cjs` covers the default marble page and mobile interactions.
 - `scripts/qa-marble.cjs` and `scripts/qa-reveal-boundary.cjs` cover the marble surface-shift mask.
 - `scripts/qa-camera.cjs` covers camera opt-in, live texture updates, camera switching, stream cleanup, denied permission, mobile overflow, and compact mobile controls using a virtual camera.
 - Physical-device camera and motion permission behavior still requires manual testing on HTTPS in Safari and Chrome.
 - JSON evidence is stored under `docs/`; screenshots are intentionally ignored by Git.
+- Avatar optimization metadata describes the private source generically and does not store a local absolute path.
 
 ## Known limitations
 
@@ -59,6 +62,6 @@ On mobile, the model is scaled to 1.5 times the earlier size and the text-avoida
 2. Read `AGENTS.md`, `docs/PROJECT_MEMORY.md`, this file, and `docs/WORK_LOG.md`.
 3. Open `content/个人作品网站内容管理.xlsx` to review pending inputs and approved content.
 4. Check `git status` and the latest commit before changing files.
-5. Install dependencies with the package manager used by the environment if `node_modules` is absent.
-6. Run `npm run dev`, open the relevant routes, and run `npm run check` before committing.
+5. Run `npm ci` if `node_modules` is absent, then run `npx playwright install chromium` if the QA browser is absent.
+6. Run `npm run dev`, open the relevant routes, and run `npm run check` before committing. Use `npm run qa` when interaction behavior changes.
 7. Update the required memory files described in `AGENTS.md` at the end of the work.
