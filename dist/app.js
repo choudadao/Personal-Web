@@ -14,7 +14,7 @@ $('.monogram').textContent = profile.monogram;
 main.innerHTML = `<section id="intro"><div id="top"></div><div class="accessible"><h1>${safe(profile.introduction).replace(/\n/g,' ')}</h1><p>${safe(profile.location)}</p></div></section>` + profile.chapters.map(c => `<section id="${safe(c.id)}"><div class="accessible"><h2>${safe(c.title)}</h2><p>${safe(c.left)}</p><p>${safe(c.right)}</p></div></section>`).join('') + `<section id="contact"><div class="accessible"><h2>${safe(profile.closing)}</h2>${profile.contact.map(c => `<a href="${safe(c.url)}">${safe(c.label)} — ${safe(c.text)}</a>`).join('')}</div></section>`;
 let renderer;
 try { renderer = new THREE.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'}); }
-catch (error) { document.body.classList.add('fallback'); $('#loading').classList.add('done'); throw error; }
+catch (error) { document.body.classList.add('fallback','dot-matrix-ready'); $('#loading').classList.add('done'); throw error; }
 renderer.setClearColor(0xffffff);renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.autoClear=false;renderer.outputColorSpace=THREE.SRGBColorSpace;stage.append(renderer.domElement);
 const scene=new THREE.Scene();scene.background=new THREE.Color(0xffffff);
 const avatarScene=new THREE.Scene(); avatarScene.add(new THREE.HemisphereLight(0xffffff,0x85899b,2.0)); const key=new THREE.DirectionalLight(0xffffff,3.0);key.position.set(-200,250,400);avatarScene.add(key);const fill=new THREE.DirectionalLight(0xe1e8ff,1.4);fill.position.set(200,30,200);avatarScene.add(fill);
@@ -112,6 +112,11 @@ function animate(ms){frame=requestAnimationFrame(animate);const now=ms/1000,dt=M
  renderer.setRenderTarget(rt);renderer.clear();renderer.render(scene,camera);renderer.setRenderTarget(null);renderer.clear();renderer.render(postScene,postCamera);renderer.clearDepth();renderer.render(avatarScene,avatarCamera);
  const pageProgress=Math.max(0,Math.min(1,window.scrollY/(document.documentElement.scrollHeight-height)));$('#progress').style.width=`${pageProgress*100}%`;const current=Math.max(0,sectionTops.findLastIndex(t=>scroll+height*.4>=t));$('#chapter-number').textContent=String(current+1).padStart(3,'0');const active=current===0?'#intro':current===sectionTops.length-1?'#contact':'#quality';document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')===active));}
 renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();cancelAnimationFrame(frame);document.body.classList.add('fallback');$('#hint').textContent='Reading mode';});renderer.domElement.addEventListener('webglcontextrestored',()=>location.reload());
-await document.fonts.load('18px Editorial');await document.fonts.ready;await loadAvatar();layout();startTime=performance.now()/1000;requestAnimationFrame(animate);$('#loading').classList.add('done');
+function layoutDotMatrix(){const frame=$('.dot-matrix__frame');if(!frame)return;const columns=innerWidth<=640?4:12;const cellSize=frame.clientWidth/columns;document.documentElement.style.setProperty('--cell-size',`${cellSize}px`);document.documentElement.style.setProperty('--scrollbar-width',`${Math.max(0,innerWidth-document.documentElement.clientWidth)}px`);}
+function revealDotMatrix(){layoutDotMatrix();requestAnimationFrame(()=>document.body.classList.add('dot-matrix-ready'));}
+window.addEventListener('resize',layoutDotMatrix,{passive:true});
+window.addEventListener('pagehide',()=>document.body.classList.add('dot-matrix-leaving'));
+document.addEventListener('click',event=>{const link=event.target.closest('a[href]');if(link&&link.origin===location.origin&&link.target!=='_blank'&&!link.hash)document.body.classList.add('dot-matrix-leaving');});
+await document.fonts.load('18px Editorial');await document.fonts.ready;await loadAvatar();layout();startTime=performance.now()/1000;requestAnimationFrame(animate);$('#loading').classList.add('done');revealDotMatrix();
 window.__aboutDebug={renderer,scene,avatar,profile,hit,marbleReveal,cameraMirror,get state(){return {variant:mirrorVersion?'mirror':marbleVersion?'marble':'original',width,height,scroll,hover,gyro,waves:waves.length,textLines:textItems.length,avatarLoaded};}};
 

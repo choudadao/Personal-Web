@@ -1,6 +1,6 @@
 # Project memory
 
-Last reviewed: 2026-09-22
+Last reviewed: 2026-10-03
 
 ## Product goal
 
@@ -25,6 +25,7 @@ The experience should prioritize finished work and interactive expression. Its c
 3. Keep the central avatar responsive to pointer or device motion and preserve click ripple, text avoidance, and local blue hover lighting.
 4. Respect reduced-motion preferences, mobile performance, accessibility, camera privacy, and graceful fallbacks.
 5. Do not fabricate personal information or project success. Missing information stays visibly pending in the workbook.
+6. Use the fixed responsive dot matrix as a restrained cross-page visual layer: it may support the identity, but must remain non-interactive, adapt its contrast to underlying content, and never reduce content legibility.
 
 ## Content system decision
 

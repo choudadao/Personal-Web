@@ -2,6 +2,15 @@
 
 Use one entry per meaningful change. Keep entries concise and factual. Newest entries go first.
 
+## 2026-10-03 — Responsive difference-blend dot matrix
+
+- Added a viewport-fixed dot matrix to `/`, `/about`, `/marble`, and `/mirror`, based on the inspected runtime settings of the Nothing About reference.
+- Preserved the 32px frame, 30% layer opacity, 1px-to-1.5px radial dots, half-cell alignment, Difference blending, pointer passthrough, and responsive 12-column desktop / four-column mobile geometry.
+- Connected the entrance to the existing completed-loading state, added a same-origin navigation fade-out, and retained an immediate reduced-motion fallback.
+- Verification: `npm run check`, `git diff --check`, the complete `npm run qa` suite, computed-style checks at 1440×1000 and 390×844, and desktop/mobile visual review passed.
+- GitHub: not pushed in this task.
+- Deployment: not updated in this task.
+
 ## 2026-09-23 — Uncompressed GLB fidelity trial
 
 - Replaced the reduced 2.3 MB avatar with the user-supplied 30.1 MB GLB without geometry or texture compression.

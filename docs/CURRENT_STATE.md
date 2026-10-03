@@ -1,6 +1,6 @@
 # Current state
 
-Updated: 2026-09-22
+Updated: 2026-10-03
 
 ## Working implementation
 
@@ -15,6 +15,8 @@ The current avatar is the user-supplied Skeptical Cap Girl GLB copied directly i
 | `/mirror` | Live | Softened chrome with optional camera reflection; mobile permission panel collapses after success; switch and stop controls remain |
 
 The colored material version has been removed from the selector and public route behavior after visual review. Its source texture data remains inside the optimized GLB but is not exposed as a public variant.
+
+All four public routes now share a viewport-fixed CSS dot matrix. It retains a 32px frame, 30% layer opacity, 1px white radial dots fading to transparency at 1.5px, and `difference` blending so dot contrast follows the underlying canvas and page content. The responsive grid divides its usable width into 12 columns on desktop/tablet and four columns at 640px and below. It fades in only after the existing font/avatar loading sequence completes, fades out for same-origin page exits, ignores pointer input, and respects reduced-motion preferences.
 
 On mobile, the model is scaled to 1.5 times the earlier size and the text-avoidance ellipse is enlarged to match.
 
@@ -33,6 +35,7 @@ On mobile, the model is scaled to 1.5 times the earlier size and the text-avoida
 - `scripts/qa.cjs` covers the default marble page and mobile interactions.
 - `scripts/qa-marble.cjs` and `scripts/qa-reveal-boundary.cjs` cover the marble surface-shift mask.
 - `scripts/qa-camera.cjs` covers camera opt-in, live texture updates, camera switching, stream cleanup, denied permission, mobile overflow, and compact mobile controls using a virtual camera.
+- The dot matrix was browser-verified at 1440×1000 and 390×844: computed opacity, blend mode, pointer passthrough, 12/4-column sizing, background alignment, and final fade state matched the inspected reference behavior.
 - Physical-device camera and motion permission behavior still requires manual testing on HTTPS in Safari and Chrome.
 - JSON evidence is stored under `docs/`; screenshots are intentionally ignored by Git.
 - Avatar optimization metadata describes the private source generically and does not store a local absolute path.
