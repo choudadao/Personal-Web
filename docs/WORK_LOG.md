@@ -8,7 +8,7 @@ Use one entry per meaningful change. Keep entries concise and factual. Newest en
 - Preserved the 32px frame, 30% layer opacity, 1px-to-1.5px radial dots, half-cell alignment, Difference blending, pointer passthrough, and responsive 12-column desktop / four-column mobile geometry.
 - Connected the entrance to the existing completed-loading state, added a same-origin navigation fade-out, and retained an immediate reduced-motion fallback.
 - Verification: `npm run check`, `git diff --check`, the complete `npm run qa` suite, computed-style checks at 1440×1000 and 390×844, and desktop/mobile visual review passed.
-- GitHub: not pushed in this task.
+- GitHub: commit `526cf6b` pushed to `origin/main`.
 - Deployment: not updated in this task.
 
 ## 2026-09-23 — Uncompressed GLB fidelity trial
